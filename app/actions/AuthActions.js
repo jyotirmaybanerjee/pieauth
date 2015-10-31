@@ -1,15 +1,12 @@
 import alt from '../lib/alt';
+import cookie from 'react-cookie';
 import RestApi from '../lib/RestApi';
 
 class AuthActions {
 
-  getAuth(data) {
+  getUserDetails() {
 
     console.log('getAuth data- ',data);
-    this.dispatch();
-    if(data._id) {
-      RestApi.post('/verify', data).then(this.actions.setAuth).catch(this.actions.setError);
-    }
   }
 
   setAuth(res) {
@@ -26,7 +23,6 @@ class AuthActions {
   }
 
   register(data) {
-    console.log('inside register data- ',data);
     this.dispatch();
     RestApi.post('/register', data).then(this.actions.setAuth).catch(this.actions.setError);
   }
@@ -36,6 +32,7 @@ class AuthActions {
   }
 
   setError(res) {
+    console.log('inside setError res- ',res);
     this.dispatch(res.data.error);
   }
 }

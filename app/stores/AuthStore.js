@@ -1,5 +1,6 @@
 import cookie from 'react-cookie';
 import alt from '../lib/alt';
+import _ from 'lodash';
 import AuthActions from '../actions/AuthActions';
 
 class AuthStore {
@@ -12,50 +13,44 @@ class AuthStore {
     });
     this.bindActions(AuthActions);
     this.exportPublicMethods({
-      getAccessToken: this.getAccessToken,
-      getLoginReferrer: this.getLoginReferrer,
-      setLoginReferrer: this.setLoginReferrer,
+      getUserCookie: this.getUserCookie,
       isAuthenticated: this.isAuthenticated
     });
   }
 
   getDefaultState() {
-    return {auth: {}};
+    return {user: {}};
   }
 
-  onSetAuth(auth) {
-    if(auth._id) {
-      cookie.save('userId', auth._id);
+  onSetAuth(user) {
+    if(user._id) {
+      this.setUserCookie(user);
     }
-    this.setState({auth});
+    this.setState({user});
   }
 
   onSetError(error) {
-    cookie.remove('userId');
+    console.log('error- ',error);
+    cookie.remove('user');
     this.setState({error});
   }
 
   onLogout() {
-    cookie.remove('loginReferrer');
-    cookie.remove('userId');
+    cookie.remove('user');
     this.setState(this.getDefaultState());
   }
 
-  getAccessToken() {
-    return cookie.load('userId');
+  setUserCookie(user) {
+    cookie.save('user', JSON.stringify(user));
   }
 
-  getLoginReferrer() {
-    return cookie.load('loginReferrer') || '/';
-  }
-
-  setLoginReferrer(path) {
-    console.log('setLoginReferrer- ',path);
-    cookie.save('loginReferrer', path);
+  getUserCookie() {
+    let userCookie = cookie.load('user');
+    return userCookie;
   }
 
   isAuthenticated() {
-    return !!this.getAccessToken();
+    return !!this.getUserCookie();
   }
 }
 

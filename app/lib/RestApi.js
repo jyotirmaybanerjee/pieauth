@@ -25,13 +25,6 @@ class RestApi {
 
   buildRequestOptions(options) {
     let data = Object.assign({}, options);
-    let accessToken = delete data.accessToken;
-
-    if (accessToken && accessToken !== false) {
-      if (accessToken === true) accessToken = AuthStore.getAccessToken();
-      data.headers = data.headers || {};
-      data.headers.Authorization = `Bearer ${accessToken}`;
-    }
     return data;
   }
 
