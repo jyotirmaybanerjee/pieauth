@@ -29,24 +29,16 @@ class App extends React.Component {
 
   	let mainComponent = <span />;
     if (AuthStore.isAuthenticated()) {
-      mainComponent = (
-        <div>
-		      <Navbar history={this.props.history} />
-          {this.props.children}
-          <Footer />
-        </div>
-      );
+      mainComponent = this.props.children;
     } else {
-      mainComponent = (
-        <div>
-          <Signup />
-        </div>
-      );
+      mainComponent = <Signup />;
     }
 
     return (
       <div className={'app-main'}>
-		    {mainComponent}
+        <Navbar history={this.props.history} />
+          {mainComponent}
+        <Footer />
       </div>
     );
   }

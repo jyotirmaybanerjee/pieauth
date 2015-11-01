@@ -29,6 +29,20 @@ class Navbar extends React.Component {
 
   render() {
 
+    let mainComponent = <span />;
+    if (AuthStore.isAuthenticated()) {
+      mainComponent = (
+        <div id="navbar" className="navbar-collapse collapse">
+          <ul className="nav navbar-nav">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/profile">Profile</Link></li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right" style={{marginRight: '10px'}}>
+            <li><a href="#" onClick={this.logout}>Logout</a></li>
+          </ul>
+        </div>
+      );
+    }
     return (
       <nav className={'navbar navbar-default navbar-static-top navbar-main'}>
         <div className="navbar-header">
@@ -38,17 +52,9 @@ class Navbar extends React.Component {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <Link to="/" className="navbar-brand">PAI</Link>
+          <a className="navbar-brand">PAI</a>
         </div>
-        <div id="navbar" className="navbar-collapse collapse">
-          <ul className="nav navbar-nav">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right" style={{marginRight: '10px'}}>
-            <li><a href="#" onClick={this.logout}>Logout</a></li>  
-          </ul>
-        </div>
+        {mainComponent}
       </nav>
     );
   }
