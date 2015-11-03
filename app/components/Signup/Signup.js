@@ -2,28 +2,9 @@ import React from 'react';
 import serialize from 'form-serialize';
 import Input from 'react-bootstrap/lib/Input';
 import Button from 'react-bootstrap/lib/Button';
-// import AuthStore from '../../stores/AuthStore.js'
 import AuthActions from '../../actions/AuthActions.js';
 
 class Login extends React.Component {
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = AuthStore.getState();
-  //   this.storeListener = this.onChange.bind(this);
-  // }
-
-  // componentDidMount() {
-  //   AuthStore.listen(this.onChange.bind(this));
-  // }
-
-  // componentWillUnmount() {
-  //   AuthStore.unlisten(this.onChange.bind(this));
-  // }
-
-  // onChange(state) {
-  //   this.setState(state);
-  // }
 
   handleLogin(e) {
     e.preventDefault();
@@ -40,7 +21,7 @@ class Login extends React.Component {
   render() {
 
     return (
-      <div className={'container'}>
+      <div className={'container signup'}>
         <div className={'col-md-6 col-sm-6'}>
           <h3>Signup</h3>
           <form onSubmit={this.handleRegistration.bind(this)}>

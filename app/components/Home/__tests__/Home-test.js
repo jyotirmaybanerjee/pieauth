@@ -1,15 +1,15 @@
-import React from 'react/addons';
-import Home from '../Home.js';
+import React from 'react';
+import ReactDom from 'react-dom';
 import { expect } from 'chai';
-
-let { TestUtils } = React.addons;
+import TestUtils from 'react-addons-test-utils';
+import Home from '../Home.js';
 
 describe('Home', () => {
   it('Should have the correct css class', () => {
     let home = TestUtils.renderIntoDocument(
       <Home />
     );
-    let element = React.findDOMNode(home);
+    let element = ReactDom.findDOMNode(home);
     expect(element.className).to.equal('home-main');
   });
 });

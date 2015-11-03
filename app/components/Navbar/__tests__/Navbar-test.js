@@ -1,15 +1,15 @@
-import React from 'react/addons';
-import Navbar from '../Navbar.js';
+import React from 'react';
+import ReactDom from 'react-dom';
 import { expect } from 'chai';
-
-let { TestUtils } = React.addons;
+import TestUtils from 'react-addons-test-utils';
+import Navbar from '../Navbar.js';
 
 describe('Navbar', () => {
   it('Should have the correct css class', () => {
     let navbar = TestUtils.renderIntoDocument(
       <Navbar />
     );
-    let element = React.findDOMNode(navbar);
+    let element = ReactDom.findDOMNode(navbar);
     expect(element.className).to.equal('navbar-main');
   });
 });
