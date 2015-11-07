@@ -35,7 +35,7 @@ class Navbar extends React.Component {
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
+            <li><Link to="/contacts">Contacts</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right" style={{marginRight: '10px'}}>
             <li><a href="#" onClick={this.logout}>Logout</a></li>

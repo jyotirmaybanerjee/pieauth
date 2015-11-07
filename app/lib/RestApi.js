@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AuthStore from '../stores/AuthStore';
-const apiBaseUrl = process.env.API_BASE_URL || 'http://localhost:3000/api';
+const apiBaseUrl = process.env.API_BASE_URL || '/api';
 
 class RestApi {
   get(path, options) {

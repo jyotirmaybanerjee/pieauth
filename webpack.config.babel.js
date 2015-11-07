@@ -19,7 +19,9 @@ var common = {
   },
   output: {
     path: BUILD_PATH,
-    filename: 'bundle.[hash].js'
+    publicPath: '/',
+    filename: 'bundle.[hash].js',
+    pathinfo: false
   },
   module: {
     loaders: [
@@ -77,4 +79,6 @@ if(TARGET === 'start' || !TARGET) {
       new webpack.HotModuleReplacementPlugin()
     ]
   });
+} else {
+  module.exports = common;
 }

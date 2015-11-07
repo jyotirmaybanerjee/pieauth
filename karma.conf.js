@@ -5,19 +5,23 @@ module.exports = function (config) {
     browsers: [ 
       // 'Chrome',
       // 'Safari',
-      'PhantomJS'
+      // 'PhantomJS',
+      'Firefox'
     ],
     singleRun: false,
-    frameworks: [ 'mocha' ],
+    frameworks: [ 'source-map-support', 'mocha' ],
     files: [
       'tests.webpack.js'
     ],
+    exclude: ['node_modules/'],
     plugins: [
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-safari-launcher',
+      'karma-firefox-launcher',
       'karma-chai',
       'karma-mocha',
+      'karma-source-map-support',
       'karma-sourcemap-loader',
       'karma-webpack',
       'karma-coverage',
@@ -26,7 +30,7 @@ module.exports = function (config) {
     preprocessors: {
       'tests.webpack.js': [ 'webpack', 'sourcemap' ]
     },
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'mocha' ],
     webpack: {
       devtool: 'inline-source-map',
       module: {
@@ -35,7 +39,7 @@ module.exports = function (config) {
         ],
         postLoaders: [ {
             test: /\.js$/,
-            exclude: /(test|node_modules|build)\//,
+            exclude: /(server|node_modules|coverage|build)\//,
             loader: 'istanbul-instrumenter' } ]
       }
     },
