@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ContactSchema = new Schema({
 
-    id: { type: Number, default: 0, unique: true},
+    id: { type: Number, default: 0, unique: true}, /* Our java api has an auto incrimenting field 'id', thats why this extra id field */
 
     name: {
         type: String,

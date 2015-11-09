@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import ContactForm from './ContactForm';
+import NewContact from './NewContact';
 import Contact from './Contact';
 import ContactStore from '../../stores/ContactStore';
 import ContactActions from '../../actions/ContactActions';
@@ -40,12 +40,18 @@ class Contacts extends Component {
 
     let contactList = this.state.contacts.map( c => {
 
-      return ( <Contact key={c.id} name={c.name} email={c.email} phone={c.phone} /> );
+      return ( <Contact key={c.id} {...c} /> );
     });
 
     if(!contactList.length) {
       contactList = <p>Your contact list is empty. Add some contacts.</p>;
     }
+
+    let rowStyle = {
+      height: '30px',
+      fontSize: '16px',
+      borderBottom: '1px solid #a1a1a1'
+    };
 
     return (
 
@@ -54,9 +60,14 @@ class Contacts extends Component {
         <Row className="pointer">
           <Col className="col-md-12">
             <div className="pull-right">
-              <ContactForm type={'new'} />
+              <NewContact />
             </div>
           </Col>
+        </Row>
+        <Row style={rowStyle}>
+          <Col className="col-md-4 col-md-offset-1"><strong>Name</strong></Col>
+          <Col className="col-md-3"><strong>Email</strong></Col>
+          <Col className="col-md-3"><strong>Phone</strong></Col>
         </Row>
         {contactList}
       </div>

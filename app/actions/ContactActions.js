@@ -10,7 +10,6 @@ class ContactActions {
   }
 
   setContacts(res) {
-    console.log('res- ',res);
     if(res.data)
       this.dispatch(res.data);
     else
@@ -33,7 +32,6 @@ class ContactActions {
   }
 
   setError(res) {
-    console.log('inside setError res- ',res);
     this.dispatch(res.data.error);
   }
 }

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import ContactForm from './ContactForm';
+import UpdateContact from './UpdateContact';
 import ContactActions from '../../actions/ContactActions';
 
 class Contact extends Component {
@@ -23,7 +22,7 @@ class Contact extends Component {
 
       <Row style={rowStyle} className="pointer">
         <Col className="col-md-1">
-          <ContactForm type={'edit'} name={this.props.name} email={this.props.email} phone={this.props.phone} />
+          <UpdateContact {...this.props} />
         </Col>
         <Col className="col-md-4">
           {this.props.name}

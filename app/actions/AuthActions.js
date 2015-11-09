@@ -4,13 +4,7 @@ import RestApi from '../lib/RestApi';
 
 class AuthActions {
 
-  getUserDetails() {
-
-    console.log('getAuth data- ',data);
-  }
-
   setAuth(res) {
-    console.log('res- ',res);
     if(res.data)
       this.dispatch(res.data);
     else

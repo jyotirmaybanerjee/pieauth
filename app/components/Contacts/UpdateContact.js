@@ -3,22 +3,15 @@ import Input from 'react-bootstrap/lib/Input';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import _ from 'lodash';
+import validator from 'validator';
 import ContactActions from '../../actions/ContactActions';
 
-class ContactForm extends Component {
+class UpdateContact extends Component {
 
-  constructor() {
-    super();
-
-    let name = (this.props && this.props.name) ? this.props.name : '';
-    let email = (this.props && this.props.email) ? this.props.email : '';
-    let phone = (this.props && this.props.phone) ? this.props.phone : '';
-    this.state = {
-      name: name,
-      email: email,
-      phone: phone,
-      showModal: false
-    };
+  constructor(props) {
+    super(props);
+    let newState = Object.assign({}, this.props, {showModal: false});
+    this.state = newState;
   }
 
   close() {
@@ -31,40 +24,26 @@ class ContactForm extends Component {
 
   handleChange() {
   	
-    console.log('this.refs- ',this.refs);
-    console.log('this.refs.name.value- ',this.refs.name.value);
-    console.log('this.refs.email.value- ',this.refs.email.value);
-    console.log('this.refs.phone.value- ',this.refs.phone.value);
   	this.setState({
 	  	name: this.refs.name.value,
 	  	email: this.refs.email.value,
 	  	phone: this.refs.phone.value
   	});
-    console.log('inside handleChange- ',this.state);
   }
 
   updateContact() {
-    console.log('editing contact- ',this.state);
-    let contactObj = _(this.state).pick('name', 'email', 'phone').value();
-    console.log('editing contact new obj- ',contactObj);
-    if(this.props.type === 'new') {
-      ContactActions.saveContact(contactObj);
-    } else {
-      ContactActions.editContact(contactObj);
-    }
+    let contactObj = _(this.state).pick('id', 'name', 'email', 'phone').value();
+    ContactActions.editContact(contactObj);
+    this.close();
   }
 
   render() {
 
-      let toggleHandler = <i className="fa fa-pencil pointer" onClick={this.open.bind(this)}></i>;
-      if(this.props.type === 'new') {
-        toggleHandler = <i className="fa fa-plus fa-2x pointer" onClick={this.open.bind(this)}></i>;
-      }
     return (
 
       <div>
         
-        {toggleHandler}
+        <i className="fa fa-pencil pointer" onClick={this.open.bind(this)}></i>
         <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
           <Modal.Header closeButton>
             <Modal.Title>Update Contact</Modal.Title>
@@ -94,4 +73,4 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+export default UpdateContact;

@@ -23,14 +23,13 @@ class AuthStore {
   }
 
   onSetAuth(user) {
-    if(user._id) {
+    if(user) {
       this.setUserCookie(user);
     }
     this.setState({user});
   }
 
   onSetError(error) {
-    console.log('error- ',error);
     cookie.remove('user');
     this.setState({error});
   }

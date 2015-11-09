@@ -31,7 +31,7 @@ class App extends React.Component {
     if (AuthStore.isAuthenticated()) {
       mainComponent = this.props.children;
     } else {
-      mainComponent = <Signup />;
+      mainComponent = <Signup message={this.state.errorMessage}/>;
     }
 
     return (

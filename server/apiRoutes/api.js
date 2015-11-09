@@ -101,8 +101,11 @@ const saveContact = (req, res, next) => {
   }
   process.nextTick( () => {
 
-    Contact.find({}, 'id -_id').sort({id: -1}).exec(function(err, docs) {
-      let newId = docs[0].id + 1;
+    Contact.find({}, 'id -_id').sort({id: -1}).exec((err, docs) => {
+      let newId = 1;
+      if(docs && docs[0]) {
+        newId += docs[0].id;
+      }
       let contact = new Contact({
         id: newId,
         name: name,
@@ -117,6 +120,49 @@ const saveContact = (req, res, next) => {
           next();
         }
       });
+    });
+  });
+};
+
+const updateContact = (req, res, next) => {
+
+  let id = req.body.id;
+  let name = req.body.name;
+  let email = req.body.email;
+  let phone = req.body.phone;
+  if (_.isEmpty(name)) {
+    return next(new Error('Missing required fields.'));
+  }
+  process.nextTick( () => {
+
+    let query = {id: id};
+    let update = {name: name, email: email, phone: phone};
+    let options = {new: true};
+    Contact.findOneAndUpdate(query, update, options, (err) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      } else {
+        next();
+      }
+    });
+  });
+};
+
+const deleteContact = (req, res, next) => {
+
+  let query = {
+    id: req.params.id
+  };
+  process.nextTick( () => {
+
+    Contact.remove(query, (err) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      } else {
+        next();
+      }
     });
   });
 };
@@ -136,7 +182,6 @@ module.exports = () => {
   let person = router.route("/persons");
 
   person.get(getContacts, (req, res, next) => {
-    debug("fetching entile contact list.");
     return res.status(200).json(req.contacts);
   });
 
@@ -144,10 +189,14 @@ module.exports = () => {
     return res.status(200).json(req.contacts);
   });
 
-  // person.delete(deleteContact, (req, res, next) => {
-  //   debug("saving new contact.");
-  //   return res.status(200).json(req.contacts);
-  // });
+  person.put(updateContact, getContacts,  (req, res, next) => {
+    return res.status(200).json(req.contacts);
+  });
+
+
+  router.route("/persons/:id").delete(deleteContact, getContacts, (req, res, next) => {
+    return res.status(200).json(req.contacts);
+  });
 
   router.unless = require("express-unless");
   return router;
