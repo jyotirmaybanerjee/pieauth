@@ -38,7 +38,7 @@ class Navbar extends React.Component {
             <li><Link to="/contacts">Contacts</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right" style={{marginRight: '10px'}}>
-            <li><a href="#" onClick={this.logout}>Logout</a></li>
+            <li><a href="/" onClick={this.logout}>Logout</a></li>
           </ul>
         </div>
       );
